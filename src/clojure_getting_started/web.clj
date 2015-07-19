@@ -16,7 +16,7 @@
   (GET "/camel" {{input :input} :params}
     {:status 200
      :headers {"Content-Type" "text/plain"}
-     :body (kebab/->CamelCase input)})
+     :body (kebab/->camelCase input)})
   (GET "/snake" {{input :input} :params}
     {:status 200
      :headers {"Content-Type" "text/plain"}
