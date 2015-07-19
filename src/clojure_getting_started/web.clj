@@ -25,6 +25,10 @@
     {:status 200
      :headers {"Content-Type" "text/plain"}
      :body (kebab/->kebab-case input)})
+  (GET "/screaming_snake" {{input :input} :params}
+    {:status 200
+     :headers {"Content-Type" "text/plain"}
+     :body (kebab/->SCREAMING_SNAKE_CASE input)})
   (GET "/" []
        (splash))
   (ANY "*" []
