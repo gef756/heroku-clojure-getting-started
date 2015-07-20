@@ -3,6 +3,7 @@
             [compojure.handler :refer [site]]
             [compojure.route :as route]
             [clojure.java.io :as io]
+            [clojure.java.jdbc :as db]
             [ring.adapter.jetty :as jetty]
             [environ.core :refer [env]]
             [camel-snake-kebab.core :as kebab]))
@@ -22,6 +23,21 @@
              kind sample kind sample))
     })
 
+(defn splashdb []
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body (concat (for [kind ["camel" "snake" "kebab"]]
+                   (format "<a href=\"/%s?input=%s\">%s %s</a><br />"
+                     kind sample kind sample))
+           (for [s (db/query (env :database-url)
+                     ["select content from sayings"])]
+             (format "<li>%s</li>" (:content s)))
+            ["</ul>"])})
+
+(defn record [input]
+  (db/insert! (env :database-url "postgres://localhost:5432/kebabs")
+    :sayings {:content input}))
+
 (defroutes app
   (GET "/camel" {{input :input} :params}
     {:status 200
@@ -40,6 +56,7 @@
      :headers {"Content-Type" "text/plain"}
      :body (kebab/->SCREAMING_SNAKE_CASE input)})
   (GET "/splashenv" [] (splashenv))
+  (GET "/splashdb" [] (splashdb))
   (GET "/" []
        (splash))
   (ANY "*" []

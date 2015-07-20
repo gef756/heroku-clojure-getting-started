@@ -8,6 +8,8 @@
                  [ring/ring-jetty-adapter "1.2.2"]
                  [environ "0.5.0"]
                  [camel-snake-kebab "0.3.2"]
+                 [org.clojure/java.jdbc "0.3.5"]
+                 [postgresql "9.1-901-1.jdbc4"]
                  [clj-webdriver "0.6.1" :exclusion [com.github.detro.ghostdriver/phantomjsdriver
                                                     org.seleniumhq.selenium/selenium-server
                                                     org.seleniumhq.selenium/selenium-java
