@@ -40,18 +40,22 @@
 
 (defroutes app
   (GET "/camel" {{input :input} :params}
+    (record input)
     {:status 200
      :headers {"Content-Type" "text/plain"}
      :body (kebab/->camelCase input)})
   (GET "/snake" {{input :input} :params}
+    (record input)
     {:status 200
      :headers {"Content-Type" "text/plain"}
      :body (kebab/->snake_case input)})
   (GET "/kebab" {{input :input} :params}
+    (record input)
     {:status 200
      :headers {"Content-Type" "text/plain"}
      :body (kebab/->kebab-case input)})
   (GET "/screaming_snake" {{input :input} :params}
+    (record input)
     {:status 200
      :headers {"Content-Type" "text/plain"}
      :body (kebab/->SCREAMING_SNAKE_CASE input)})
